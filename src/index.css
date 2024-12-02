@@ -1,0 +1,340 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
+
+* {
+  box-sizing: border-box;
+}
+body {
+  /* background: #1c8ef9 !important; */
+  min-height: 100vh;
+  display: flex;
+  font-weight: 400;
+  font-family: "Fira Sans", sans-serif;
+}
+p,ul,a{
+  font-size: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+span {
+  font-weight: 500;
+  font-family: "Fira Sans", sans-serif;
+ 
+}
+
+body,
+html,
+.App,
+#root,
+.auth-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.navbar-light {
+  background-color: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+}
+
+.auth-inner {
+  width: 450px;
+  margin: auto;
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all 0.3s;
+}
+
+.auth-wrapper .form-control:focus {
+  border-color: #167bff;
+  box-shadow: none;
+}
+
+.auth-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+
+.custom-control-label {
+  font-weight: 400;
+}
+
+.forgot-password,
+.forgot-password a {
+  text-align: right;
+  font-size: 13px;
+  padding-top: 10px;
+  color: #7f7d7d;
+  margin: 0;
+}
+
+.forgot-password a {
+  color: #167bff;
+}
+.continue-p{
+  font-size: 12px;
+    color: #b2b2b2;
+    font-weight: 600;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+
+
+/* Block CSS*/
+.block-container {
+  border: 2px solid black;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  margin-bottom: 30px;
+}
+
+.block-text {
+  color: black;
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
+}
+
+.block-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.spacer {
+  display: flex;
+  align-items: center; 
+  gap: 100px; 
+}
+
+.block-button {
+  padding: 8px 16px;
+  background-color: #0048D7;
+  color: rgb(255, 255, 255);
+  border: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.block-button:hover {
+  background-color: #2619bc;
+  color: rgb(255, 255, 255);
+}
+
+
+/*Logout Css*/
+.logout-btn{
+  background-color: #ff0000;
+  height: 40px;
+  width: 100px;
+  text-align: center;
+  color: #ffffff;
+
+}
+.logout-btn:hover{
+  background-color: #e71414;
+  height: 40px;
+  width: 100px;
+  text-align: center;
+  color: #ffffff;
+
+}
+
+/* Dash board CSS*/
+.dashboard{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 50px;
+  
+}
+
+
+/*Learning CSS*/
+.parent-container {
+  position: relative;
+}
+
+.align-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+/* Title CSS*/
+.title {
+  margin-top: 20px;
+}
+
+/*Green Farming Css*/
+.header {
+  text-align: left;
+  margin-right: 250px; 
+  padding: 20px; 
+}
+/* Table of Contents Box */
+.table-of-contents {
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  width: 200px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10; 
+}
+
+/* Table of Contents Links */
+.table-of-contents h4 {
+  margin-bottom: 10px;
+}
+
+.table-of-contents a {
+  display: block;
+  text-align: left;
+  margin: 5px 0;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.table-of-contents a:hover {
+  text-decoration: underline;
+}
+
+
+.main-content {
+  margin-right: 250px; 
+}
+.image-align{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* tool tip css*/
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 110%; 
+  left: 150%;
+  transform: translateX(-50%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*Single card*/
+.card1 {
+  position: relative;
+}
+.card1 img {
+  width: 100%;
+  display: block;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  margin: 5px;
+}
+.card1 .front-img {
+  position: absolute;
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+}
+.flipped1 .front-img {
+  transform: rotateY(0deg);
+  transition-delay: 0.2s;
+}
+.card1 .cover-img {
+  transition: all ease-in 0.2s;
+  transition-delay: 0.2s;
+  margin: 5px;
+}
+.flipped1 .cover-img {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+  margin: 5px;
+}
+/*dscsd*/
+.App1 {
+   width: 860px;
+   margin: 40px auto;
+}
+button {
+   background: none;
+   border: 2px solid;
+   padding: 6px 12px;
+   border-radius: 4px;
+   color: #c23866;;
+   font-weight: bold;
+   cursor: pointer;
+   font-size: 1em;
+}
+button:hover {
+   background: #c23866;
+   color: #fff;
+}
+.card-grid1 {
+   margin-top: 40px;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   grid-gap: 20px;
+}
+/*For displaying two layer grid in web*/
+.pgrid {
+  display: flex;
+  flex-direction: row;
+   /* Responsive columns */
+  gap: 20px; /* Space between grid items */
+  padding: 20px; /* Padding around the grid */
+  justify-items: center; /* Center-align items horizontally */
+  align-items: start; /* Align items to the top */
+}
+
+/* Styling for each header section */
+.header1 {
+  background-color: #efecec; /* Light background for contrast */
+  border: 1px solid #4f4e4e; /* Border for definition */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Internal spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: left; /* Align text to the left */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Spacing between content items */
+}
