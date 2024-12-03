@@ -18,6 +18,10 @@ import Carpentry from "./components/Carpentry";
 import Healthcare from "./components/Healtcare";
 import MemoryGame from "./components/MemoryGame";
 import AssessmentGarden from "./components/AssesmentGarden";
+import AssesmentPreview from "./components/AssesmentPreview";
+import AssessmentHealth from "./components/AssesmentHealt";
+import AssessmentCarpentry from "./components/AssesmentCarpentry";
+import ViewModel from "./components/ViewModel";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -50,7 +54,10 @@ function App() {
               <Route path="/memorygame" element={<MemoryGame />}/>
               <Route path="/healthcare" element={<Healthcare/>} />
               <Route path="/assesment_garden" element={<AssessmentGarden />} />
-
+              <Route path="viewmodel" element ={ <ViewModel />} />
+              <Route path="/assesment" element={<AssesmentPreview />} />
+              <Route path="/assesment_health" element = {<AssessmentHealth />} />
+              <Route path="/assesment_carpentry" element= {<AssessmentCarpentry />} />
             </Routes>
             <ToastContainer />
   

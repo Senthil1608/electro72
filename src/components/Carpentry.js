@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ useState } from 'react';
 import Title from './Title';
 import Block from './Block'
 import buttjoint from '../images/buttjoint.png'
@@ -7,28 +7,41 @@ import lapjoint from '../images/lapjoint.png'
 import hammer from '../images/hammer.jpeg'
 import spanner from '../images/spanner.jpeg'
 import screwdriver from '../images/screwdriver.jpeg'
+import { useNavigate } from "react-router-dom"; 
 import BackToDashBoard from './BackToDashBoard';
 import dovetail from '../images/dovetail.png'
 import tenon from '../images/tenon.png'
+import ViewModel from './ViewModel';
+import spannermodel from '../models/spanner.glb';
+import hammermodel from '../models/hammer.glb';
 
+import memoryGame from './MemoryGame';
 const Carpentry = () => {
+  const navigate = useNavigate();
   const titleinfo1 = {
     text: 'Carpentry',
   };
   const titleinfo2 = {
     text: 'Tools for Carpentry',
   };
+  const titleinfo3 = {
+    text: 'Play now and excersise your brain',
+  };
   const blockInfo1 = {
     text: 'Hammer',
     image: hammer,
-    onClick: () => alert('Second block button clicked!'),
+    onClick: () =>  {
+      navigate("/viewmodel", { state: { modelPath: hammermodel } }); // Pass modelPath via state
+    },
     info: "This is the tooltip text for the info icon",
   };
   const blockInfo2 = {
-    text: 'Spanner',
+    text: "Spanner",
     image: spanner,
-    onClick: () => alert('Second block button clicked!'),
-    info: "This is the tooltip text for the info icon",
+    onClick: () => {
+      navigate("/viewmodel", { state: { modelPath: spannermodel } }); // Pass modelPath via state
+    },
+    info: "This is the tooltip text for the Spanner block",
   };
   const blockInfo3 ={
     text: 'Screwdriver',
@@ -223,6 +236,13 @@ const Carpentry = () => {
       <Block boxInfo={blockInfo3} />
 
     </div>
+    <Title titleInfo={titleinfo3}/>
+    <button
+      className="logout-btn"
+      onClick={memoryGame}
+    >
+        Play Now
+    </button>
     </div>
 
     <div className="table-of-contents">
@@ -238,6 +258,7 @@ const Carpentry = () => {
 
 
       </div>
+
       
     </div>
   );

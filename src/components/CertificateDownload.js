@@ -22,10 +22,8 @@ const CertificateDownload = ({ name, certificateType }) => {
   const downloadTriggeredRef = useRef(false); // Track if download was triggered
 
   useEffect(() => {
-    // Skip certificate generation if download was already triggered for this session
-    if (downloadTriggeredRef.current) {
-      return;
-    }
+    // Prevent duplicate downloads
+    if (downloadTriggeredRef.current) return;
 
     // Validate inputs before proceeding
     if (!name || !certificateType) {
@@ -34,10 +32,14 @@ const CertificateDownload = ({ name, certificateType }) => {
     }
 
     const generateCertificate = async () => {
+      // Mark the download as triggered immediately to prevent duplicates
+      downloadTriggeredRef.current = true;
+
       // Get the template path based on the certificate type
       const templatePath = getTemplatePath(certificateType);
       if (!templatePath) {
         console.error('No valid template found for certificate type:', certificateType);
+        downloadTriggeredRef.current = false; // Allow retry if there's an error
         return;
       }
 
@@ -47,11 +49,13 @@ const CertificateDownload = ({ name, certificateType }) => {
           .then((res) => res.arrayBuffer())
           .catch((err) => {
             console.error('Error fetching PDF template:', err);
+            downloadTriggeredRef.current = false; // Allow retry if there's an error
             return null;
           });
 
         if (!existingPdfBytes) {
           console.error('Failed to fetch the template PDF');
+          downloadTriggeredRef.current = false; // Allow retry if there's an error
           return;
         }
 
@@ -81,11 +85,9 @@ const CertificateDownload = ({ name, certificateType }) => {
         // Trigger the download
         saveAs(blob, `${name}-${certificateType}-certificate.pdf`);
         console.log('Certificate download triggered.');
-
-        // Mark the download as triggered to prevent future downloads
-        downloadTriggeredRef.current = true;
       } catch (error) {
         console.error('Error generating certificate:', error);
+        downloadTriggeredRef.current = false; // Allow retry if there's an error
       }
     };
 

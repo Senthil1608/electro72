@@ -28,7 +28,10 @@ const Dashboard = () => {
   const blockInfo3 ={
     text: 'Ceritifed Assessment',
     image: img3,
-    onClick: () => alert('Third Button'),
+    onClick: () => {
+      console.log("Logged out");
+      window.location.href = "/assesment"
+      },
     info: "This is the tooltip text for the info icon",
 
   }

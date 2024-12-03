@@ -29,10 +29,7 @@ const GreenFarming = () => {
   const blockInfo2 = {
     text: 'Gardening Fork',
     image: fork,
-    onClick: () =>  {
-      console.log("Logged out");
-      window.location.href = "/assesment_garden"
-      },
+    onClick: () => alert('Second block button clicked!'),
     info: "This is the tooltip text for the info icon",
   };
   const blockInfo3 ={
