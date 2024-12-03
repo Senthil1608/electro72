@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import CertificateDownload from "./CertificateDownload"; // Import the CertificateDownload component
 
 const AssessmentGarden = () => {
   const [name, setName] = useState("");
@@ -7,12 +8,14 @@ const AssessmentGarden = () => {
   const [questions] = useState([
     { id: 1, question: "What is green farming?", options: ["A", "B", "C", "D"], answer: "A" },
     { id: 2, question: "Which crop is commonly used in organic farming?", options: ["Rice", "Wheat", "Barley", "Millet"], answer: "Wheat" },
-    // Add 8 more questions here
+    // Add more questions as needed
   ]);
   const [currentAnswers, setCurrentAnswers] = useState({});
   const [score, setScore] = useState(0);
-  const [showCertificate, setShowCertificate] = useState(false);
   const [testEnded, setTestEnded] = useState(false);
+  const [certificateReady, setCertificateReady] = useState(false); // To track whether certificate can be downloaded
+
+  const downloadTriggered = useRef(false);  // Ref to track if download is triggered
 
   // Timer countdown logic
   useEffect(() => {
@@ -51,8 +54,11 @@ const AssessmentGarden = () => {
       }
     });
     setScore(calculatedScore);
-    setShowCertificate(true);
-    setTestEnded(true);
+    setTestEnded(true); // End the test and calculate score
+    // Check if score is >= 50% (threshold for certificate generation)
+    if (calculatedScore / questions.length >= 0.5) {
+      setCertificateReady(true); // Set the flag to show the download button
+    }
   };
 
   const handleRestart = () => {
@@ -61,28 +67,16 @@ const AssessmentGarden = () => {
     setTimeLeft(600);
     setCurrentAnswers({});
     setScore(0);
-    setShowCertificate(false);
     setTestEnded(false);
+    setCertificateReady(false); // Reset certificate flag on restart
+    downloadTriggered.current = false;  // Reset download flag on restart
   };
 
-  const generateCertificate = () => {
-    return score / questions.length >= 0.4 ? (
-      <div className="bg-green-100 text-green-800 p-6 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold mb-4">Congratulations, {name}!</h1>
-        <p>You passed the assessment with a score of {score}/{questions.length}!</p>
-      </div>
-    ) : (
-      <div className="bg-red-100 text-red-800 p-6 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold mb-4">Sorry, {name}!</h1>
-        <p>You scored {score}/{questions.length}. Please try again.</p>
-        <button
-          onClick={handleRestart}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Reattempt
-        </button>
-      </div>
-    );
+  const handleDownloadCertificate = () => {
+    // Trigger certificate download only once using ref
+    if (!downloadTriggered.current) {
+      downloadTriggered.current = true;
+    }
   };
 
   const renderQuestions = () =>
@@ -107,7 +101,8 @@ const AssessmentGarden = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-gray-50 rounded-lg shadow-lg">
-      {!isStarted && !showCertificate && (
+      {/* Name Entry */}
+      {!isStarted && !testEnded && (
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Welcome to the Assessment Garden</h1>
           <input
@@ -129,7 +124,8 @@ const AssessmentGarden = () => {
         </div>
       )}
 
-      {isStarted && (
+      {/* Assessment content */}
+      {isStarted && !testEnded && (
         <div className="mt-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">Assessment</h2>
@@ -139,23 +135,57 @@ const AssessmentGarden = () => {
           </div>
           <form className="bg-white p-6 rounded-lg shadow-md">
             {renderQuestions()}
-            {!testEnded && (
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="w-full bg-green-500 text-black px-4 py-2 rounded-lg hover:bg-green-600 mt-6"
-                disabled={Object.keys(currentAnswers).length < questions.length}
-              >
-                Submit
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="block-btn"
+              disabled={Object.keys(currentAnswers).length < questions.length}
+            >
+              Submit
+            </button>
           </form>
         </div>
       )}
 
-      {showCertificate && (
+      {/* Result, Score and Certificate Download */}
+      {testEnded && name && (
         <div className="mt-6">
-          {generateCertificate()}
+          {/* Show score and message based on result */}
+          <div className="text-center mt-4">
+            {score / questions.length >= 0.5 ? (
+              <div className="bg-green-100 text-green-800 p-6 rounded-lg shadow-lg">
+                <h1 className="text-2xl font-bold mb-4">Congratulations, {name}!</h1>
+                <p>You passed the assessment with a score of {score}/{questions.length}!</p>
+                {/* Show download button only if score >= 50% */}
+                {certificateReady && (
+                  <div className="mt-4">
+                    {/* Certificate download button */}
+                    <button
+                      onClick={handleDownloadCertificate}
+                      className="bg-green-500 block-btn"
+                    >
+                      Download Certificate
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="bg-red-100 text-red-800 p-6 rounded-lg shadow-lg">
+                <h1 className="text-2xl font-bold mb-4">Sorry, {name}!</h1>
+                <p>You scored {score}/{questions.length}. Please try again.</p>
+                <button
+                  onClick={handleRestart}
+                  className="bg-red-500 block-btn"
+                >
+                  Reattempt
+                </button>
+              </div>
+            )}
+          </div>
+          {/* Trigger the certificate download after the button click */}
+          {downloadTriggered.current && certificateReady && (
+            <CertificateDownload name={name} certificateType="Green Farming" />
+          )}
         </div>
       )}
     </div>
